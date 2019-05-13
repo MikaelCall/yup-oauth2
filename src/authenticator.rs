@@ -160,11 +160,11 @@ where
                                 Retry::After(d) => sleep(d),
                             }
                         }
-                        &&PollError::Expired(ref t) => {
+                        (&&PollError::Expired(ref t)) => {
                             self.delegate.expired(t);
                             return Err(Box::new(StringError::from(pts)));
                         }
-                        &&PollError::AccessDenied => {
+                        (&&PollError::AccessDenied) => {
                             self.delegate.denied();
                             return Err(Box::new(StringError::from(pts)));
                         }
